@@ -1,15 +1,18 @@
+import "../css/app.css"
 import { QueryClient, QueryClientProvider } from 'react-query';
 import ReactDOM from "react-dom";
 import { ReactQueryDevtools } from 'react-query/devtools';
+import EnhancedCanvasContainer from "./container/EnhancedCanvasContainer";
 
 const queryClient = new QueryClient();
-
 
 export function App() {
     return (
         <QueryClientProvider client={queryClient}>
-            <h1>Hello World React</h1>
-            <ReactQueryDevtools initialIsOpen={false} />
+            <EnhancedCanvasContainer />
+            {process.env.NODE_ENV === 'development' && (
+                <ReactQueryDevtools initialIsOpen={false} />
+            )}
         </QueryClientProvider>
     )
 }
