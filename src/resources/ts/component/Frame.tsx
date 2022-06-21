@@ -2,7 +2,7 @@ import { useFrame } from '@react-three/fiber'
 import * as React from 'react'
 import { Mesh, MeshStandardMaterial, Plane } from 'three'
 const Frame: React.FC = () => {
-    const ref = React.useRef({} as Mesh)
+    const ref = React.useRef({} as any);
     useFrame(() => (ref.current.rotation.x += 0.01));
 
     return (
