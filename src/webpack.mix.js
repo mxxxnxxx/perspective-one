@@ -11,7 +11,7 @@ const mix = require("laravel-mix");
  |
  */
 
-mix.ts("resources/ts/app.tsx", "public/js")
+mix.js("resources/js/app.js", "public/js")
     .react()
     .browserSync({
         proxy: "http://127.0.0.1",
