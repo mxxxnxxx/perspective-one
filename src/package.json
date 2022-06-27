@@ -24,13 +24,16 @@
         "react-refresh": "^0.13.0"
     },
     "dependencies": {
+        "@emotion/react": "^11.9.3",
+        "@emotion/styled": "^11.9.3",
+        "@mui/material": "^5.8.5",
         "@react-three/drei": "7.3.1",
         "@react-three/fiber": "7.0.6",
         "@types/three": "^0.141.0",
         "browser-sync-webpack-plugin": "^2.3.0",
+        "camera-controls": "1.33.1",
         "react-query": "^3.39.1",
         "three": "^0.130.0",
-        "use-ammojs": "^0.2.21",
-        "camera-controls": "1.33.1"
+        "use-ammojs": "^0.2.21"
     }
 }
