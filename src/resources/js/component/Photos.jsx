@@ -1,9 +1,10 @@
 import { useFrame, useLoader } from "@react-three/fiber";
+import * as THREE from "three";
 import { TextureLoader } from "three/src/loaders/TextureLoader";
 import { BodyType, ShapeType, useRigidBody } from "use-ammojs";
-import * as THREE from "three";
 import { useMovementContext } from "../context/MovementContext";
-const SPEED = 10;
+
+const SPEED = 15;
 const direction = new THREE.Vector3();
 const frontVector = new THREE.Vector3();
 const sideVector = new THREE.Vector3();
