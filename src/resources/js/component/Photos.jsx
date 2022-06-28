@@ -2,14 +2,14 @@ import { useFrame, useLoader } from "@react-three/fiber";
 import { TextureLoader } from "three/src/loaders/TextureLoader";
 import { BodyType, ShapeType, useRigidBody } from "use-ammojs";
 import * as THREE from "three";
-import Controls from "./Controls";
-
+import { useMovementContext } from "../context/MovementContext";
 const SPEED = 10;
 const direction = new THREE.Vector3();
 const frontVector = new THREE.Vector3();
 const sideVector = new THREE.Vector3();
 
 const Photos = () => {
+    const { Controls } = useMovementContext();
     const [ref, api] = useRigidBody(() => ({
         mass: 10000,
         bodyType: BodyType.DYNAMIC,
@@ -17,7 +17,7 @@ const Photos = () => {
         position: [0, 0, 0],
     }));
 
-    let { up, down, left, right } = Controls();
+    const { up, down, left, right } = Controls();
 
     useFrame(() => {
         frontVector.set(0, Number(down) - Number(up), 0);
