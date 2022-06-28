@@ -76,16 +76,23 @@ const Screenshot = () => {
                             height: "70vh",
                         }}
                     />
-                    <CardContent>
-                        <Typography variant="body2" color="text.secondary">
-                            あなたの端末に"Image"がダウンロードされます｡
+                    <CardContent sx={{ backgroundColor: "black" }}>
+                        <Typography variant="body1" sx={{ color: "white" }}>
+                            あなたの端末にImageがダウンロードされます
                             <br />
-                            Image"はこの体験を仕向けた製作者にも開示され､複製されます｡
                             <br />
-                            脳を殺さないでください｡
+                            Imageはこの体験を仕向けた製作者にも開示され､複製されます
+                            <br />
+                            <br />
+                            脳を殺さないでください
                         </Typography>
                     </CardContent>
-                    <CardActions sx={{ justifyContent: "center" }}>
+                    <CardActions
+                        sx={{
+                            justifyContent: "center",
+                            backgroundColor: "black",
+                        }}
+                    >
                         <Button
                             color="error"
                             size="small"
