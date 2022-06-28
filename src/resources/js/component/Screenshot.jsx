@@ -1,16 +1,30 @@
 import html2canvas from "html2canvas";
-import { IconButton } from "@mui/material";
+import {
+    Button,
+    Card,
+    CardActions,
+    CardContent,
+    CardMedia,
+    IconButton,
+    Modal,
+    Typography,
+} from "@mui/material";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import { useState } from "react";
 
 const Screenshot = () => {
-    const saveAsImage = (uri) => {
-        const downloadLink = document.createElement("a");
+    const [modalOn, setModalOn] = useState(false);
+    const handleOpen = () => setModalOn(true);
+    const handleClose = () => setModalOn(false);
+    const [targetImgUri, setTargetImgUri] = useState("");
 
+    const saveAsImage = () => {
+        const downloadLink = document.createElement("a");
         if (typeof downloadLink.download === "string") {
-            downloadLink.href = uri;
+            downloadLink.href = targetImgUri;
 
             // ファイル名
-            downloadLink.download = "component.png";
+            downloadLink.download = `${Date()}.png`;
 
             // Firefox では body の中にダウンロードリンクがないといけないので一時的に追加
             document.body.appendChild(downloadLink);
@@ -21,30 +35,75 @@ const Screenshot = () => {
             // Firefox 対策で追加したリンクを削除しておく
             document.body.removeChild(downloadLink);
         } else {
-            window.open(uri);
+            window.open(targetImgUri);
         }
+        handleClose();
     };
+
     const onClickExport = () => {
         // 画像に変換する component の id を指定
         const target = document.getElementById("screenshot");
+
         html2canvas(target, {
-            dpi: 315,
+            dpi: 300,
+            scale: 2,
         }).then((canvas) => {
-            const targetImgUri = canvas.toDataURL("img/png");
-            saveAsImage(targetImgUri);
+            setTargetImgUri(() => canvas.toDataURL("img/png"));
+            handleOpen();
         });
     };
     return (
-        <IconButton
-            onClick={() => onClickExport()}
-            sx={{
-                position: "fixed",
-                top: "90%",
-                left: "65%",
-            }}
-        >
-            <VisibilityOutlinedIcon sx={{ color: "gray" }} fontSize="large" />
-        </IconButton>
+        <>
+            <IconButton
+                onClick={() => onClickExport()}
+                sx={{
+                    position: "fixed",
+                    top: "90%",
+                    left: "65%",
+                }}
+            >
+                <VisibilityOutlinedIcon
+                    sx={{ color: "gray" }}
+                    fontSize="large"
+                />
+            </IconButton>
+            <Modal open={modalOn} onClose={handleClose}>
+                <Card>
+                    <CardMedia
+                        component="img"
+                        image={targetImgUri}
+                        sx={{
+                            height: "70vh",
+                        }}
+                    />
+                    <CardContent>
+                        <Typography variant="body2" color="text.secondary">
+                            あなたの端末に"Image"がダウンロードされます｡
+                            <br />
+                            Image"はこの体験を仕向けた製作者にも開示され､複製されます｡
+                            <br />
+                            脳を殺さないでください｡
+                        </Typography>
+                    </CardContent>
+                    <CardActions sx={{ justifyContent: "center" }}>
+                        <Button
+                            color="error"
+                            size="small"
+                            onClick={() => saveAsImage()}
+                        >
+                            必要
+                        </Button>
+                        <Button
+                            color="error"
+                            size="small"
+                            onClick={() => handleClose()}
+                        >
+                            不要
+                        </Button>
+                    </CardActions>
+                </Card>
+            </Modal>
+        </>
     );
 };
 

@@ -16,7 +16,7 @@ const CanvasContainer = () => {
             <Canvas
                 camera={{
                     fov: 75,
-                    near: 0.1,
+                    near: 10,
                     far: 1000,
                     position: [0, 0, -800],
                 }}
