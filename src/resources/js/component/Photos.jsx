@@ -1,9 +1,11 @@
 import { useFrame, useLoader } from "@react-three/fiber";
+import { useMemo } from "react";
+import * as THREE from "three";
 import { TextureLoader } from "three/src/loaders/TextureLoader";
 import { BodyType, ShapeType, useRigidBody } from "use-ammojs";
-import * as THREE from "three";
 import { useMovementContext } from "../context/MovementContext";
-const SPEED = 10;
+
+const SPEED = 15;
 const direction = new THREE.Vector3();
 const frontVector = new THREE.Vector3();
 const sideVector = new THREE.Vector3();
@@ -33,12 +35,12 @@ const Photos = () => {
     // マテリアル作成
     // マテリアルでMesh作成
     // console.log(textureUrl);
-    const colorMap = useLoader(TextureLoader, "./photos.jpg");
-
+    const texture = useLoader(TextureLoader, "./photos.jpg");
+    useMemo(() => (texture.minFilter = THREE.LinearFilter), []);
     return (
         <mesh ref={ref}>
             <boxBufferGeometry args={[300, 200, 0.1]} />
-            <meshStandardMaterial map={colorMap} visible={true} />
+            <meshStandardMaterial map={texture} />
         </mesh>
     );
 };
