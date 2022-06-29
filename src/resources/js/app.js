@@ -4,7 +4,6 @@ import ReactDOM from "react-dom";
 import { ReactQueryDevtools } from "react-query/devtools";
 import CanvasContainer from "./component/CanvasContainer";
 import { MovementProvider } from "./context/MovementContext";
-
 const queryClient = new QueryClient();
 
 export function App() {

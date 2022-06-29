@@ -9,7 +9,11 @@ body #app canvas  {
     height: 100vh;
     margin: 0;
     padding: 0;
-    background: rgb(0, 0, 0);
+    background-image: url(../../public/OFAG.gif);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: black;
+
 
 }
 
