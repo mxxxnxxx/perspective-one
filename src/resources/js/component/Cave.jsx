@@ -7,7 +7,7 @@ const Cave = () => {
     const ref = useRef();
     const [colorMap, displacementMap, normalMap, roughnessMap, aoMap] =
         useLoader(TextureLoader, [
-            "./Stylized_Cliff_Rock_003_baseColor.jpg",
+            "./Stylized_Cliff_Rock_003_basecolor.jpg",
             "./Stylized_Cliff_Rock_003_height.png",
             "./Stylized_Cliff_Rock_003_normal.jpg",
             "./Stylized_Cliff_Rock_003_roughness.jpg",
