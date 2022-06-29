@@ -1,8 +1,9 @@
 import { OrbitControls, useContextBridge } from "@react-three/drei";
-import { Canvas, useThree } from "@react-three/fiber";
+import { Canvas } from "@react-three/fiber";
 import { Suspense } from "react";
 import { Physics } from "use-ammojs";
 import { useMovementContext } from "../context/MovementContext";
+import Cave from "./Cave";
 import JoystickController from "./JoystickController";
 import Photos from "./Photos";
 import Screenshot from "./Screenshot";
@@ -16,13 +17,15 @@ const CanvasContainer = () => {
             <Canvas
                 camera={{
                     fov: 75,
-                    near: 10,
-                    far: 1000,
-                    position: [0, 0, -800],
+                    near: 0.1,
+                    far: 100000,
+                    position: [0, 0, -100],
                 }}
                 id="screenshot"
-                // これがないとスクショがブラックアウト
-                gl={{ preserveDrawingBuffer: true }}
+                gl={{
+                    // これがないとスクショがブラックアウト
+                    preserveDrawingBuffer: true,
+                }}
             >
                 {/* useContextをCanvas内で使うためのコンポ-ネント */}
                 <ContextBridge>
@@ -30,7 +33,12 @@ const CanvasContainer = () => {
                         <ambientLight intensity={0.29} />
                         <Physics>
                             <Photos />
-                            <OrbitControls makeDefault />
+                            <Cave />
+                            <OrbitControls
+                                makeDefault
+                                zoomSpeed={0.2}
+                                rotateSpeed={0.6}
+                            />
                         </Physics>
                     </Suspense>
                 </ContextBridge>

@@ -5,7 +5,7 @@ import { TextureLoader } from "three/src/loaders/TextureLoader";
 import { BodyType, ShapeType, useRigidBody } from "use-ammojs";
 import { useMovementContext } from "../context/MovementContext";
 
-const SPEED = 15;
+const SPEED = 2;
 const direction = new THREE.Vector3();
 const frontVector = new THREE.Vector3();
 const sideVector = new THREE.Vector3();
@@ -39,7 +39,7 @@ const Photos = () => {
     useMemo(() => (texture.minFilter = THREE.LinearFilter), []);
     return (
         <mesh ref={ref}>
-            <boxBufferGeometry args={[300, 200, 0.1]} />
+            <boxBufferGeometry args={[30, 20, 0.1]} />
             <meshStandardMaterial map={texture} />
         </mesh>
     );
