@@ -34,11 +34,11 @@ jobs:
           key: composer-v2-{{ checksum "src/composer.lock" }}
           paths:
             - src/vendor
-      - run: #pdo drive error 回避
-          name: Install PHP extensions
-          command: |
-            sudo -E docker-php-ext-install pdo_mysql
-            sudo -E docker-php-ext-enable pdo_mysql
+      # - run: #pdo drive error 回避
+      #     name: Install PHP extensions
+      #     command: |
+      #       sudo -E docker-php-ext-install pdo_mysql
+      #       sudo -E docker-php-ext-enable pdo_mysql
       # - restore_cache:
       #     key: npm-v2-{{ checksum "backend/package-lock.json" }}
       # - run:
