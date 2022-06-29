@@ -83,7 +83,7 @@ jobs:
           # migrate --force でyes noをきかれなくしている
           command: |
             ssh -o StrictHostKeyChecking=no -t webapp@${HOST_NAME} "cd perspective-one && \
-              git pull origin master && \
+              git pull origin main && \
               docker-compose down --rmi all --volumes --remove-orphans && \
               docker-compose up -d --build && \
               docker-compose exec -T app composer install --optimize-autoloader --no-dev && \
