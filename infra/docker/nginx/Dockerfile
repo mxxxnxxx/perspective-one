@@ -1,12 +1,10 @@
 FROM node:16-alpine as node
 FROM nginx:1.22
-
+SHELL ["/bin/ash", "-oeux", "pipefail", "-c"]
 WORKDIR /data
 
 ENV TZ=UTC
 
-RUN apk update && \
-    apk add --update --no-cache --virtual=.build-dependencies g++
 
 # --- ⑥ COPY 命令 ---
 # node command
