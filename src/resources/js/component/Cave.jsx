@@ -7,11 +7,11 @@ const Cave = () => {
     const ref = useRef();
     const [colorMap, displacementMap, normalMap, roughnessMap, aoMap] =
         useLoader(TextureLoader, [
-            "./Stylized_Cliff_Rock_003_BaseColor.jpg",
-            "./Stylized_Cliff_Rock_003_Height.png",
-            "./Stylized_Cliff_Rock_003_Normal.jpg",
-            "./Stylized_Cliff_Rock_003_Roughness.jpg",
-            "./Stylized_Cliff_Rock_003_AmbientOcclusion.jpg",
+            "./Stylized_Cliff_Rock_003_baseColor.jpg",
+            "./Stylized_Cliff_Rock_003_height.png",
+            "./Stylized_Cliff_Rock_003_normal.jpg",
+            "./Stylized_Cliff_Rock_003_roughness.jpg",
+            "./Stylized_Cliff_Rock_003_ambientOcclusion.jpg",
         ]);
     const blackTexture = useLoader(TextureLoader, "./blackMap.jpg");
 
