@@ -82,7 +82,7 @@ jobs:
           # ${HOST_NAME}はcircleciのホームページ側で事前に設定した環境変数が呼び出される
           # migrate --force でyes noをきかれなくしている
           command: |
-            ssh -o StrictHostKeyChecking=no -t webapp@${HOST_NAME} "cd PressPlace-nginx && \
+            ssh -o StrictHostKeyChecking=no -t webapp@${HOST_NAME} "cd perspective-one && \
               git pull origin master && \
               docker-compose down --rmi all --volumes --remove-orphans && \
               docker-compose up -d --build && \
