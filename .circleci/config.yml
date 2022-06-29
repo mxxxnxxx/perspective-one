@@ -37,8 +37,8 @@ jobs:
       - run: #pdo drive error 回避
           name: Install PHP extensions
           command: |
-            sudo docker-php-ext-install pdo_mysql
-            sudo docker-php-ext-enable pdo_mysql
+            sudo -E docker-php-ext-install pdo_mysql
+            sudo -E docker-php-ext-enable pdo_mysql
       # - restore_cache:
       #     key: npm-v2-{{ checksum "backend/package-lock.json" }}
       # - run:
@@ -71,34 +71,34 @@ jobs:
           name: php test
           command: vendor/bin/phpunit -c ./phpunit_circleci.xml
 
-  # deploy:
-  #   docker:
-  #     - image: cimg/php:8.1.5-node
-  #   steps:
-  #     - add_ssh_keys
-  #     - run:
-  #         name: deploy
-  #         # StrictHostKeyChecking=no は 初めてつなげるSSHに対しての注意喚起をスキップ
-  #         # ${HOST_NAME}はcircleciのホームページ側で事前に設定した環境変数が呼び出される
-  #         # migrate --force でyes noをきかれなくしている
-  #         command: |
-  #           ssh -o StrictHostKeyChecking=no -t webapp@${HOST_NAME} "cd PressPlace-nginx && \
-  #             git pull origin master && \
-  #             docker-compose down --rmi all --volumes --remove-orphans && \
-  #             docker-compose up -d --build && \
-  #             docker-compose exec -T app composer install --optimize-autoloader --no-dev && \
-  #             docker-compose exec -T app cp .env.example .env && \
-  #             docker-compose exec -T app php artisan key:generate --force && \
-  #             docker-compose exec -T app chmod 777 storage/app/public && \
-  #             docker-compose exec -T app chmod -R 777 storage bootstrap/cache && \
-  #             docker-compose exec -T app chmod 777 storage/app/public && \
-  #             docker-compose exec -T app chmod 777 storage/framework/cache && \
-  #             docker-compose exec -T app chmod 777 storage/framework/sessions && \
-  #             docker-compose exec -T app chmod 777 storage/framework/views && \
-  #             docker-compose exec -T app php artisan storage:link && \
-  #             docker-compose exec -T app php artisan cache:clear && \
-  #             docker-compose exec -T app php artisan config:cache && \
-  #             docker-compose exec -T app php artisan migrate --force"
+  deploy:
+    docker:
+      - image: cimg/php:8.1.5-node
+    steps:
+      - add_ssh_keys
+      - run:
+          name: deploy
+          # StrictHostKeyChecking=no は 初めてつなげるSSHに対しての注意喚起をスキップ
+          # ${HOST_NAME}はcircleciのホームページ側で事前に設定した環境変数が呼び出される
+          # migrate --force でyes noをきかれなくしている
+          command: |
+            ssh -o StrictHostKeyChecking=no -t webapp@${HOST_NAME} "cd PressPlace-nginx && \
+              git pull origin master && \
+              docker-compose down --rmi all --volumes --remove-orphans && \
+              docker-compose up -d --build && \
+              docker-compose exec -T app composer install --optimize-autoloader --no-dev && \
+              docker-compose exec -T app cp .env.example .env && \
+              docker-compose exec -T app php artisan key:generate --force && \
+              docker-compose exec -T app chmod 777 storage/app/public && \
+              docker-compose exec -T app chmod -R 777 storage bootstrap/cache && \
+              docker-compose exec -T app chmod 777 storage/app/public && \
+              docker-compose exec -T app chmod 777 storage/framework/cache && \
+              docker-compose exec -T app chmod 777 storage/framework/sessions && \
+              docker-compose exec -T app chmod 777 storage/framework/views && \
+              docker-compose exec -T app php artisan storage:link && \
+              docker-compose exec -T app php artisan cache:clear && \
+              docker-compose exec -T app php artisan config:cache && \
+              docker-compose exec -T app php artisan migrate --force"
 
 workflows:
   version: 2
