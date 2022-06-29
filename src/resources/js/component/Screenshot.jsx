@@ -73,7 +73,7 @@ const Screenshot = () => {
                         component="img"
                         image={targetImgUri}
                         sx={{
-                            height: "70vh",
+                            height: "50vh",
                         }}
                     />
                     <CardContent sx={{ backgroundColor: "black" }}>
