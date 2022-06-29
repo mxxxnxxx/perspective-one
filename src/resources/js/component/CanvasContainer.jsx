@@ -16,22 +16,22 @@ const CanvasContainer = () => {
     const ContextBridge = useContextBridge(Context);
     return (
         <>
-            <Canvas
-                camera={{
-                    fov: 75,
-                    near: 0.1,
-                    far: 100000,
-                    position: [0, 0, -100],
-                }}
-                id="screenshot"
-                gl={{
-                    // これがないとスクショがブラックアウト
-                    preserveDrawingBuffer: true,
-                }}
-            >
-                {/* useContextをCanvas内で使うためのコンポ-ネント */}
-
-                <Suspense fallback={<Loading />}>
+            <Loading />
+            <Suspense fallback={null}>
+                <Canvas
+                    camera={{
+                        fov: 75,
+                        near: 0.1,
+                        far: 100000,
+                        position: [0, 0, -100],
+                    }}
+                    id="screenshot"
+                    gl={{
+                        // これがないとスクショがブラックアウト
+                        preserveDrawingBuffer: true,
+                    }}
+                >
+                    {/* useContextをCanvas内で使うためのコンポ-ネント */}
                     <ContextBridge>
                         <ambientLight intensity={0.29} />
                         <Physics>
@@ -45,10 +45,10 @@ const CanvasContainer = () => {
                             />
                         </Physics>
                     </ContextBridge>
-                </Suspense>
-            </Canvas>
-            <JoystickController />
-            <Screenshot />
+                </Canvas>
+                <JoystickController />
+                <Screenshot />
+            </Suspense>
         </>
     );
 };
