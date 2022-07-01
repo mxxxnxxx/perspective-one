@@ -10,9 +10,7 @@ const postImage = async (imgData) => {
 
 const usePostImageMutation = () => {
     return useMutation(postImage, {
-        onSuccess: (data) => {
-            console.log(data);
-        },
+        onSuccess: () => {},
         onError: () => {},
     });
 };
