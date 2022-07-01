@@ -11,26 +11,48 @@ import {
 } from "@mui/material";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import { useState } from "react";
+import usePostImageMutation from "../hooks/usePostImageMutation";
+import PostImageLoading from "./PostImageLoading";
+import { Box } from "@mui/system";
 
 const Screenshot = () => {
+    const { mutate: postImage, isLoading, isFetching } = usePostImageMutation();
     const [modalOn, setModalOn] = useState(false);
     const handleOpen = () => setModalOn(true);
     const handleClose = () => setModalOn(false);
     const [targetImgUri, setTargetImgUri] = useState("");
 
-    const saveAsImage = () => {
+    const saveAsImage = async () => {
         const downloadLink = document.createElement("a");
         if (typeof downloadLink.download === "string") {
-            downloadLink.href = targetImgUri;
+            // MINE形式のファイルをBlobにへんかんする
+            const type = "image/png";
+            const bin = atob(targetImgUri.split(",")[1]);
+            const buffer = new Uint8Array(bin.length);
+            for (let i = 0; i < bin.length; i++) {
+                buffer[i] = bin.charCodeAt(i);
+            }
+            const blobImage = new Blob([buffer.buffer], { type: type });
+
+            // ファイルネーム定義
+            const fileName = `${Date()}.png`;
 
             // ファイル名
             downloadLink.download = `${Date()}.png`;
-
+            // ユーザー側DLリンク生成
+            downloadLink.href = window.URL.createObjectURL(blobImage);
+            downloadLink.setAttribute("download", fileName);
             // Firefox では body の中にダウンロードリンクがないといけないので一時的に追加
             document.body.appendChild(downloadLink);
 
-            // ダウンロードリンクが設定された a タグをクリック
-            downloadLink.click();
+            // ファイルとして画像をlaravelにHTTPリクエスト
+            const data = new FormData();
+            data.append("img", blobImage, fileName);
+            // DB保存の処理
+            postImage(data, {
+                onSuccess: () => downloadLink.click(),
+                onError: () => console.log("error"),
+            });
 
             // Firefox 対策で追加したリンクを削除しておく
             document.body.removeChild(downloadLink);
@@ -40,26 +62,36 @@ const Screenshot = () => {
         handleClose();
     };
 
+    // canvasを画像に変換する処理
     const onClickExport = () => {
         // 画像に変換する component の id を指定
         const target = document.getElementById("screenshot");
 
         html2canvas(target, {
             dpi: 300,
-            scale: 2,
+            scale: 3,
         }).then((canvas) => {
-            setTargetImgUri(() => canvas.toDataURL("img/png"));
+            setTargetImgUri(() => canvas.toDataURL("img/png", 1));
+            // モーダルON
             handleOpen();
         });
     };
+
+    // ローディング中
+    if (isLoading) {
+        return (
+            <PostImageLoading isLoading={isLoading} isFetching={isFetching} />
+        );
+    }
     return (
         <>
             <IconButton
                 onClick={() => onClickExport()}
                 sx={{
                     position: "fixed",
-                    top: "90%",
-                    left: "65%",
+                    top: "88vh",
+                    left: "60vw",
+                    opacity: "60%",
                 }}
             >
                 <VisibilityOutlinedIcon
@@ -68,24 +100,43 @@ const Screenshot = () => {
                 />
             </IconButton>
             <Modal open={modalOn} onClose={handleClose}>
-                <Card>
+                <Card
+                    sx={{
+                        backgroundColor: "black",
+                    }}
+                >
                     <CardMedia
                         component="img"
                         image={targetImgUri}
                         sx={{
-                            height: "50vh",
+                            height: "60vh",
+                            width: "auto",
+                            backgroundColor: "black",
+                            margin: "auto",
                         }}
                     />
-                    <CardContent sx={{ backgroundColor: "black" }}>
-                        <Typography variant="body1" sx={{ color: "white" }}>
-                            あなたの端末にImageがダウンロードされます
-                            <br />
-                            <br />
-                            Imageはこの体験を仕向けた製作者にも開示され､複製されます
-                            <br />
-                            <br />
-                            脳を殺さないでください
-                        </Typography>
+                    <CardContent
+                        sx={{
+                            backgroundColor: "black",
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                        }}
+                    >
+                        <Box sx={{ maxWidth: "70%" }}>
+                            <Typography variant="body1" sx={{ color: "white" }}>
+                                あなたの端末にImageがダウンロードされます
+                                <br />
+                                <br />
+                                Imageはこの体験を仕向けた製作者にも開示され
+                                <br />
+                                <br />
+                                複製されます
+                                <br />
+                                <br />
+                                脳を殺さないでください
+                            </Typography>
+                        </Box>
                     </CardContent>
                     <CardActions
                         sx={{
