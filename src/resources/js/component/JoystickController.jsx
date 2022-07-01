@@ -55,7 +55,7 @@ const JoystickController = () => {
         }));
     };
     return (
-        <span className="joystick">
+        <div className="joystick">
             <Joystick
                 baseColor="gray"
                 stickColor="black"
@@ -63,7 +63,7 @@ const JoystickController = () => {
                 stop={onStop}
                 size={50}
             />
-        </span>
+        </div>
     );
 };
 export default JoystickController;

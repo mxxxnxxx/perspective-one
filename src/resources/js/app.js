@@ -1,4 +1,6 @@
 import "../css/app.css";
+import "../css/reset.css";
+
 import { QueryClient, QueryClientProvider } from "react-query";
 import ReactDOM from "react-dom";
 import { ReactQueryDevtools } from "react-query/devtools";
