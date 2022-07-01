@@ -40,7 +40,7 @@ const CanvasContainer = () => {
                             <BlackCave />
                             <OrbitControls
                                 makeDefault
-                                zoomSpeed={0.2}
+                                zoomSpeed={0.6}
                                 rotateSpeed={0.6}
                             />
                         </Physics>

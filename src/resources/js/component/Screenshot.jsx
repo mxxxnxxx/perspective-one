@@ -10,7 +10,7 @@ import {
     Typography,
 } from "@mui/material";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import usePostImageMutation from "../hooks/usePostImageMutation";
 import PostImageLoading from "./PostImageLoading";
 import { Box } from "@mui/system";
@@ -22,26 +22,17 @@ const Screenshot = () => {
     const handleClose = () => setModalOn(false);
     const [targetImgUri, setTargetImgUri] = useState("");
 
-    const saveAsImage = async () => {
+    const saveAsImage = () => {
         const downloadLink = document.createElement("a");
         if (typeof downloadLink.download === "string") {
             // MINE形式のファイルをBlobにへんかんする
-            const type = "image/png";
-            const bin = atob(targetImgUri.split(",")[1]);
-            const buffer = new Uint8Array(bin.length);
-            for (let i = 0; i < bin.length; i++) {
-                buffer[i] = bin.charCodeAt(i);
-            }
-            const blobImage = new Blob([buffer.buffer], { type: type });
-
+            const blobImage = mineToBlob(targetImgUri);
             // ファイルネーム定義
             const fileName = `${Date()}.png`;
-
-            // ファイル名
-            downloadLink.download = `${Date()}.png`;
+            // DLリンク用ファイル名を設定
+            downloadLink.download = fileName;
             // ユーザー側DLリンク生成
             downloadLink.href = window.URL.createObjectURL(blobImage);
-            downloadLink.setAttribute("download", fileName);
             // Firefox では body の中にダウンロードリンクがないといけないので一時的に追加
             document.body.appendChild(downloadLink);
 
@@ -62,8 +53,18 @@ const Screenshot = () => {
         handleClose();
     };
 
+    function mineToBlob(targetImg) {
+        const type = "image/png";
+        const bin = atob(targetImg.split(",")[1]);
+        const buffer = new Uint8Array(bin.length);
+        for (let i = 0; i < bin.length; i++) {
+            buffer[i] = bin.charCodeAt(i);
+        }
+        const blobImage = new Blob([buffer.buffer], { type: type });
+        return blobImage;
+    }
     // canvasを画像に変換する処理
-    const onClickExport = () => {
+    const shutter = () => {
         // 画像に変換する component の id を指定
         const target = document.getElementById("screenshot");
 
@@ -83,10 +84,12 @@ const Screenshot = () => {
             <PostImageLoading isLoading={isLoading} isFetching={isFetching} />
         );
     }
+
+    // useEffect(() => {}, [targetImgUri, blobImage]);
     return (
         <>
             <IconButton
-                onClick={() => onClickExport()}
+                onClick={() => shutter()}
                 sx={{
                     position: "fixed",
                     top: "88vh",
@@ -147,7 +150,7 @@ const Screenshot = () => {
                         <Button
                             color="error"
                             size="small"
-                            onClick={() => saveAsImage()}
+                            onClick={() => saveAsImage(targetImgUri)}
                         >
                             必要
                         </Button>
