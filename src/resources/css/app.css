@@ -19,8 +19,9 @@ body #app canvas  {
 .joystick {
     position: fixed;
     left: 35vw;
-    top:88vh;
-    opacity: 60%
+    top:78vh;
+    opacity: 60%;
+    display:none;
 }
 .loader {
     position: fixed;
