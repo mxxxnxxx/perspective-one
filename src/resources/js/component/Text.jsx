@@ -18,12 +18,20 @@ const Text = () => {
     const handleClose = () => setTextModalOn(false);
 
     return (
-        <Modal open={textModalOn} onClose={handleClose}>
-            <Card
-                sx={{
-                    backgroundColor: "black",
-                }}
-            >
+        <Modal
+            open={textModalOn}
+            onClose={handleClose}
+            sx={{
+                width: "100%",
+                height: "100%",
+                position: "fixed",
+                top: "0",
+                left: "0",
+                zIndex: "1",
+                backgroundColor: "black",
+            }}
+        >
+            <Card sx={{}}>
                 <CardContent
                     sx={{
                         backgroundColor: "black",
