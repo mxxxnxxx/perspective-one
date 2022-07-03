@@ -92,8 +92,10 @@ const Screenshot = () => {
                 onClick={() => shutter()}
                 sx={{
                     position: "fixed",
-                    top: "88vh",
-                    left: "60vw",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    transform: "translateX(-50%)",
                     opacity: "60%",
                 }}
             >
