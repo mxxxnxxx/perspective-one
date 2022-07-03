@@ -22,13 +22,8 @@ const Text = () => {
             open={textModalOn}
             onClose={handleClose}
             sx={{
-                width: "100%",
-                height: "100%",
+                maxHeight: "70%",
                 position: "fixed",
-                top: "0",
-                left: "0",
-                zIndex: "1",
-                backgroundColor: "black",
             }}
         >
             <Card sx={{}}>
