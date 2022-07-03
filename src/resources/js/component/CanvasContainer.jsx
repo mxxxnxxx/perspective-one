@@ -9,6 +9,7 @@ import JoystickController from "./JoystickController";
 import Loading from "./Loading";
 import Photos from "./Photos";
 import Screenshot from "./Screenshot";
+import Text from "./Text";
 
 const CanvasContainer = () => {
     // useContextをCanvas内で使うための記述
@@ -16,6 +17,7 @@ const CanvasContainer = () => {
     const ContextBridge = useContextBridge(Context);
     return (
         <>
+            <Text />
             <Loading />
             <Suspense fallback={null}>
                 <Canvas
