@@ -152,7 +152,7 @@ const Screenshot = () => {
                         <Button
                             color="error"
                             size="small"
-                            onClick={() => saveAsImage(targetImgUri)}
+                            onClick={() => saveAsImage()}
                         >
                             必要
                         </Button>
