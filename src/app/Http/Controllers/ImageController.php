@@ -1,23 +1,29 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Request;
-use Barryvdh\Debugbar\Facades\Debugbar;
-use Illuminate\Support\Facades\Storage;
-use App\Models\Image;
+use Illuminate\Http\Response;
 
 class ImageController extends Controller
 {
-    public function store (Request $request) {
-        $img = $request->file('img');
-        if($img){
-            $path = Storage::disk('s3')->put('perspective', $img);
-            Image::create([
-                'url' => $path
-            ]);
-            return response([],201);
+    /**
+     * @param Request $request
+     * @return Response|Application|ResponseFactory
+     */
+
+    public function store(Request $request): Response|Application|ResponseFactory
+    {
+        if ($request->file('img')) {
+            $img = $request->file('img');
+            $this->createImg($img);
+            return response([], 201);
         }
-        return response([],500);
+        return response([], 500);
     }
+
+
 }
