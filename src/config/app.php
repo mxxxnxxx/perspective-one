@@ -41,7 +41,7 @@ return [
     |
     */
 
-    'debug' => (bool) env('APP_DEBUG', false),
+    'debug' => (bool)env('APP_DEBUG', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -195,7 +195,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\LocalEnviromentServiceProvider::class,
-
+        App\Providers\ImageServiceProvider::class,
+        App\Providers\ImageRepositoryProvider::class,
     ],
 
     /*
