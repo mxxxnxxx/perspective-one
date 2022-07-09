@@ -15,11 +15,16 @@ class ImageController extends Controller
     /**
      * @param ControlImageService $createImgService
      * @param CreateImgRepository $createImgRepository
-     * @param ImageRequest $request
+     * @param ImageRequest $request バリデーションはこちらで実装
      * @return Response|Application|ResponseFactory
      */
 
-    public function store(ControlImageService $createImgService, CreateImgRepository $createImgRepository, ImageRequest $request): Response|Application|ResponseFactory
+    public function store
+    (
+        ControlImageService $createImgService,
+        CreateImgRepository $createImgRepository,
+        ImageRequest        $request
+    ): Response|Application|ResponseFactory
     {
         $img = $createImgService->controlImage($request);
         if ($img) {
