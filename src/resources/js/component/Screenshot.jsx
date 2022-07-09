@@ -1,19 +1,10 @@
 import html2canvas from "html2canvas";
-import {
-    Button,
-    Card,
-    CardActions,
-    CardContent,
-    CardMedia,
-    IconButton,
-    Modal,
-    Typography,
-} from "@mui/material";
+import {Button, Card, CardActions, CardContent, CardMedia, IconButton, Modal, Typography,} from "@mui/material";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
-import { useEffect, useState } from "react";
+import {useState} from "react";
 import usePostImageMutation from "../hooks/usePostImageMutation";
 import PostImageLoading from "./PostImageLoading";
-import { Box } from "@mui/system";
+import {Box} from "@mui/system";
 
 const Screenshot = () => {
     const { mutate: postImage, isLoading, isFetching } = usePostImageMutation();
@@ -60,8 +51,7 @@ const Screenshot = () => {
         for (let i = 0; i < bin.length; i++) {
             buffer[i] = bin.charCodeAt(i);
         }
-        const blobImage = new Blob([buffer.buffer], { type: type });
-        return blobImage;
+        return new Blob([buffer.buffer], {type: type});
     }
     // canvasを画像に変換する処理
     const shutter = () => {
@@ -94,7 +84,6 @@ const Screenshot = () => {
                     position: "fixed",
                     top: "50%",
                     left: "50%",
-                    transform: "translateX(-50%)",
                     transform: "translateX(-50%)",
                     opacity: "60%",
                 }}
