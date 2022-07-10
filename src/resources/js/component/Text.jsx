@@ -24,7 +24,12 @@ const Text = () => {
 
                     }}
                 >
-                    <Box sx={{maxWidth: "70%"}}>
+                    <Box
+                        sx={{
+                            maxWidth: "70%",
+                            maxHeight: "70%"
+
+                        }}>
                         <Typography
                             variant="body1"
                             sx={{
@@ -49,7 +54,7 @@ const Text = () => {
                         size="small"
                         onClick={() => handleClose()}
                     >
-                        Unit Test Start
+                        Test Start
                     </Button>
                 </CardActions>
             </Card>
