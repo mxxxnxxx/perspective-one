@@ -15,7 +15,7 @@ class CreateImgRepository implements ImageRepositoryInterface
      * @param UploadedFile $img
      * @return void
      */
-    
+
     public function createImg(UploadedFile $img): void
     {
         $path = Storage::disk('s3')->put('perspective', $img);
