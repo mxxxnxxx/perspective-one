@@ -1,8 +1,8 @@
 <?php
 
+use App\Http\Controllers\ImageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ImageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,8 +14,7 @@ use App\Http\Controllers\ImageController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-Route::post('/image',[ImageController::class,"store"]);
+Route::post('/image', [ImageController::class, "store"])->name('image.store');
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
