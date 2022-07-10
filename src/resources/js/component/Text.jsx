@@ -1,16 +1,6 @@
-import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
-import {
-    Button,
-    Card,
-    CardActions,
-    CardContent,
-    CardMedia,
-    IconButton,
-    Modal,
-    Typography,
-} from "@mui/material";
-import { Box } from "@mui/system";
-import { useState } from "react";
+import {Button, Card, CardActions, CardContent, Modal, Typography,} from "@mui/material";
+import {Box} from "@mui/system";
+import {useState} from "react";
 
 const Text = () => {
     const [textModalOn, setTextModalOn] = useState(true);
@@ -21,21 +11,20 @@ const Text = () => {
         <Modal
             open={textModalOn}
             onClose={handleClose}
-            sx={{
-                maxHeight: "70%",
-                position: "fixed",
-            }}
+            sx={{}}
+            fullScreen={true}
         >
-            <Card sx={{}}>
+            <Card>
                 <CardContent
                     sx={{
                         backgroundColor: "black",
                         display: "flex",
                         flexDirection: "column",
                         alignItems: "center",
+
                     }}
                 >
-                    <Box sx={{ maxWidth: "70%" }}>
+                    <Box sx={{maxWidth: "70%"}}>
                         <Typography
                             variant="body1"
                             sx={{
