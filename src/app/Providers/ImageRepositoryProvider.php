@@ -3,6 +3,9 @@
 namespace App\Providers;
 
 use App\Repositories\Image\CreateImgRepository;
+use App\Repositories\Image\ImageRepositoryInterface;
+use App\Repositories\Image\TestCreateImgRepository;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
 
 class ImageRepositoryProvider extends ServiceProvider
@@ -14,7 +17,11 @@ class ImageRepositoryProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->singleton(CreateImgRepository::class, function () {
+        $this->app->singleton(ImageRepositoryInterface::class, function () {
+
+            if (App::environment('local')) {
+                return new TestCreateImgRepository();
+            }
             return new CreateImgRepository();
         });
     }
