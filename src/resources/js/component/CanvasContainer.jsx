@@ -1,24 +1,23 @@
-import { OrbitControls, useContextBridge } from "@react-three/drei";
-import { Canvas } from "@react-three/fiber";
-import { Suspense } from "react";
-import { Physics } from "use-ammojs";
-import { useMovementContext } from "../context/MovementContext";
+import {OrbitControls, useContextBridge} from "@react-three/drei";
+import {Canvas} from "@react-three/fiber";
+import {Suspense} from "react";
+import {Physics} from "use-ammojs";
+import {useMovementContext} from "../context/MovementContext";
 import BlackCave from "./BlackCave";
 import Cave from "./Cave";
 import JoystickController from "./JoystickController";
 import Loading from "./Loading";
 import Photos from "./Photos";
 import Screenshot from "./Screenshot";
-import Text from "./Text";
 
 const CanvasContainer = () => {
     // useContextをCanvas内で使うための記述
-    const { Context } = useMovementContext();
+    const {Context} = useMovementContext();
     const ContextBridge = useContextBridge(Context);
     return (
         <>
-            <Text />
-            <Loading />
+
+            <Loading/>
             <Suspense fallback={null}>
                 <Canvas
                     camera={{
@@ -35,11 +34,11 @@ const CanvasContainer = () => {
                 >
                     {/* useContextをCanvas内で使うためのコンポ-ネント */}
                     <ContextBridge>
-                        <ambientLight intensity={0.29} />
+                        <ambientLight intensity={0.29}/>
                         <Physics>
-                            <Photos />
-                            <Cave />
-                            <BlackCave />
+                            <Photos/>
+                            <Cave/>
+                            <BlackCave/>
                             <OrbitControls
                                 makeDefault
                                 zoomSpeed={0.6}
@@ -48,9 +47,10 @@ const CanvasContainer = () => {
                         </Physics>
                     </ContextBridge>
                 </Canvas>
-                <JoystickController />
-                <Screenshot />
+                <JoystickController/>
+
             </Suspense>
+            <Screenshot/>
         </>
     );
 };
